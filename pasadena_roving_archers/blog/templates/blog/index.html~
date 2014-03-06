@@ -1,0 +1,9 @@
+{% if blog_list %}
+    <ul>
+    {% for blog in blog_list %}
+        <li><h3>{{ blog.title }}</h3><p>{{blog.content}}</p></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
