@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from models import BlogPost, HeaderElement
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 from django import forms
 
@@ -16,6 +17,8 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
+            user = User.objects.create_user(form.cleaned_data["email"], form.cleaned_data["email"], form.cleaned_data["password"])
+            user.save()
             return HttpResponseRedirect("thanks/")
     else:
         form = RegisterForm()
