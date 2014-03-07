@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from models import BlogPost, HeaderElement
+from models import BlogPost, HeaderElement, ArcheryClass
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -21,6 +21,10 @@ class RegisterForm(forms.Form):
 def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+def classes(request):
+    classes = ArcheryClass.objects.order_by('date')
+    return renderWithHeader(request, 'blog/classes.html', {'classes' : classes })
 
 def thanks(request):
     return renderWithHeader(request, 'blog/thanks.html')
