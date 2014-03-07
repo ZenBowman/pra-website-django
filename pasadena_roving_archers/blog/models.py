@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
@@ -32,3 +32,7 @@ class ArcheryClass(models.Model):
 
     def __unicode__(self):
         return "%s @ %s" % (self.type, self.date.date())
+
+class ClassRegistration(models.Model):
+    archery_class = models.ForeignKey(ArcheryClass)
+    user = models.ForeignKey(User)
