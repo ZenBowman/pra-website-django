@@ -7,3 +7,4 @@ admin.site.register(HeaderElement)
 admin.site.register(ArcheryClassType)
 admin.site.register(ArcheryClass)
 admin.site.register(ClassRegistration)
+
