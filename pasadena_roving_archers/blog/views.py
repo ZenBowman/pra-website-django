@@ -19,7 +19,7 @@ def register(request):
             return HttpResponseRedirect("thanks/")
     else:
         form = RegisterForm()
-        return render(request, '/blog/register.html', { 'form': form })
+        return render(request, 'blog/register.html', { 'form': form })
 
 # Create your views here.
 def index(request):
