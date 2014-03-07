@@ -14,10 +14,7 @@
     </tr></table>
     {% endif %}
 </div>
-{% if userexists %}
-<p>I'm sorry, that email is already registered in our database.</p>
-{% endif %}
-<form action="/blog/register/" method="post">{% csrf_token %}
+<form action="/blog/login/" method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>

@@ -1,31 +1,42 @@
 {% load staticfiles %}
-<html><head>
-  <title>Pasadena Roving Archers&raquo;</title>
+<html>
+<head>
+    <title>Pasadena Roving Archers&raquo;</title>
 </head>
 <body>
 <div id="top">
     <div id="topimg"><img src="{% static "blog/images/pra-banner.jpg" %}"/></div>
     <div>
-      {% if header_list %}
-      <table><tr>
-        {% for header_item in header_list %}
-        <td><a href="{{ header_item.link }}">{{ header_item.name }}</a></td>
-        {% endfor %}
-      </tr></table>
-      {% endif %}
+        {% if header_list %}
+        <table>
+            <tr>
+                {% for header_item in header_list %}
+                <td><a href="{{ header_item.link }}">{{ header_item.name }}</a></td>
+                {% endfor %}
+
+                {% if username %}
+                <td><a href="/blog/logout">Logout</a>[{{ username }}]</td>
+                {% else %}
+                <td><a href="/blog/login">Login</a>[Anonymous user]</td>
+                {% endif %}
+            </tr>
+        </table>
+        {% endif %}
     </div>
     <div>
-{% if blog_list %}
-    <ul>
-    {% for blog in blog_list %}
-        <h3>{{ blog.title }}</h3><p>{{blog.content}}</p>
-	{% if blog.image %}
-	<img src="{{ blog.image }}"/>
-	{% endif %}
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No blogposts</p>
-{% endif %}
-</div>
+        {% if blog_list %}
+        <ul>
+            {% for blog in blog_list %}
+            <h3>{{ blog.title }}</h3>
+
+            <p>{{blog.content}}</p>
+            {% if blog.image %}
+            <img src="{{ blog.image }}"/>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No blogposts</p>
+        {% endif %}
+    </div>
 </body>
