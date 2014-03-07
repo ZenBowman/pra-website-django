@@ -1,10 +1,4 @@
 from django.db import models
-from redactor.fields import RedactorField
-
-class EnrichedBlogPost(models.Model):
-    title = models.CharField(max_length=250, verbose_name=u'Title')
-    short_text = RedactorField(verbose_name=u'Text')
-    pub_date = models.DateTimeField('Date published')
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
@@ -18,6 +12,6 @@ class BlogPost(models.Model):
 class HeaderElement(models.Model):
     name = models.CharField(max_length=50)
     link = models.TextField(max_length=100)
-
+    order = models.IntegerField()
     def __unicode__(self):
         return self.name
