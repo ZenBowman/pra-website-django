@@ -33,6 +33,13 @@ class ArcheryClass(models.Model):
     def __unicode__(self):
         return "%s @ %s" % (self.type, self.date.date())
 
+class ClassRegistrationManager(models.Manager):
+    def create_class(self, archery_class, user):
+        a_class = self.create(archery_class=archery_class, user=user)
+        return a_class
+
 class ClassRegistration(models.Model):
     archery_class = models.ForeignKey(ArcheryClass)
     user = models.ForeignKey(User)
+
+    objects = ClassRegistrationManager()

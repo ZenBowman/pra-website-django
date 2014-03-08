@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from models import BlogPost, HeaderElement, ArcheryClass
+from models import BlogPost, HeaderElement, ArcheryClass, ClassRegistration
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from django import forms
 
@@ -74,4 +75,11 @@ def index(request):
     blog_list = BlogPost.objects.order_by('-pub_date')
     context = {'blog_list': blog_list}
     return renderWithHeader(request, 'blog/index.html', context)
-    
+
+@login_required
+def signup(request):
+    class_id = request.GET.get("class_id")
+    class_by_id = ArcheryClass.objects.filter(id = class_id)[0]
+    if request.user:
+        ClassRegistration.objects.create_class(class_by_id, request.user)
+    return HttpResponseRedirect("/blog/classes/")

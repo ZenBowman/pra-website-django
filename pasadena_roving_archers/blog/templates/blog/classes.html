@@ -7,21 +7,46 @@
 <div id="topimg"><img src="{% static "blog/images/pra-banner.jpg" %}"/></div>
 <div>
     {% if header_list %}
-    <table><tr>
-        {% for header_item in header_list %}
-        <td><a href="{{ header_item.link }}">{{ header_item.name }}</a></td>
-        {% endfor %}
-    </tr></table>
+    <table>
+        <tr>
+            {% for header_item in header_list %}
+            <td><a href="{{ header_item.link }}">{{ header_item.name }}</a></td>
+            {% endfor %}
+
+            {% if username %}
+            <td><a href="/blog/logout">Logout</a>[{{ username }}]</td>
+            {% else %}
+            <td><a href="/blog/login">Login</a>[Anonymous user]</td>
+            {% endif %}
+        </tr>
+    </table>
     {% endif %}
 </div>
 
 <div>
+    {% if not username %}
+    <h3>You must be logged in to sign up for any upcoming classes</h3>
+    {% endif %}
+
     {% if classes %}
-    <ul>
+    <table border="1">
+        <tr>
+            <td>Class</td>
+            <td>Date</td>
+            <td>Actions</td>
+        </tr>
         {% for c in classes %}
-        <h3>{{ c }}<a href="/signup/{{c.id}}"> Sign up</a></h3>
+        <tr>
+            <td>{{ c.type }}</td>
+            <td>{{ c.date }}</td>
+            {% if username %}
+            <td><a href="/blog/signup?class_id={{c.id}}"> Sign up</a></td>
+            {% else %}
+            <td>Please login in order to sign up</td>
+            {% endif %}
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
     {% else %}
     <p>No classes</p>
     {% endif %}
