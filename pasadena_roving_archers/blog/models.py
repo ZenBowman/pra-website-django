@@ -29,6 +29,7 @@ class ArcheryClassType(models.Model):
 class ArcheryClass(models.Model):
     date = models.DateTimeField("Date of class")
     type = models.ForeignKey(ArcheryClassType)
+    capacity = models.IntegerField(default=50)
 
     def __unicode__(self):
         return "%s @ %s" % (self.type, self.date.date())
